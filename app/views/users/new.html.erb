@@ -1,0 +1,11 @@
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+
+<%= form_with model: @user do |form| %>
+  <%= form.label :name, "Name:" %>
+  <%= form.text_field :name %> <br>
+  <%= form.label :username, "Username:"%>
+  <%= form.text_field :username %> <br>
+  <%= form.submit "Submit" %>
+<% end %>

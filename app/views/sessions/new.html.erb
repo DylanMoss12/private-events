@@ -1,0 +1,7 @@
+<%= form_with model: @user, url: sessions_path do |form| %>
+  <%= form.label :name, "Name:" %>
+  <%= form.text_field :name %> <br>
+  <%= form.label :username, "Username:"%>
+  <%= form.text_field :username %> <br>
+  <%= form.submit "Log In" %>
+<% end %>

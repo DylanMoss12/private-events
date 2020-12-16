@@ -1,0 +1,43 @@
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+
+<% @user = User.find_by_id(session[:current_user_id]) %>
+
+<div>
+  <%= @user.username %>
+  <%= link_to "Create new event", new_event_url %>
+  <%= link_to "Log Out", session_path(session[:current_user_id]), method: :delete %>
+</div>
+
+<div>
+  <h4>
+    Your upcoming events:
+  </h4>
+  <div>
+    <% @user.events.upcoming.each do |event| %>
+        <%= link_to "#{event.eventname}", event_path(event.id) %>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <h4>
+    Events you're invited to:
+  </h4>
+  <% @user.attended_events.upcoming.each do |event| %>
+      <%= link_to "#{event.eventname}", event_path(event.id) %>
+  <% end %>
+</div>
+
+<div>
+  <h4>
+    Past events:
+  </h4>
+  <% @user.events.past.each do |event| %>
+        <%= link_to "#{event.eventname}", event_path(event.id) %>
+    <% end %>
+  <% @user.attended_events.past.each do |event| %>
+      <%= link_to "#{event.eventname}", event_path(event.id) %>
+  <% end %>
+</div>

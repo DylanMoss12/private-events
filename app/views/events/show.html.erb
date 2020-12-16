@@ -1,0 +1,46 @@
+<% @event = Event.find_by_id(session[:current_event_id]) %>
+
+
+<div>
+  <div>
+    <h2> 
+      <%= @event.eventname %> 
+    </h2>
+    <h5>
+      created by <%= @event.creator.name %>
+    </h5>
+  </div>
+
+  <div>
+    Description: <%= @event.description %> <br>
+    Location: <%= @event.location %> <br>
+    Date and Time: <%= @event.datetime %> <br>
+    People invited: 
+    <% @attendees = [] %>
+    <% @event.attendies.each do |attendee| %>
+      <% @attendees << attendee.id %>
+      <%= attendee.username %>
+    <% end %>
+  </div>
+
+  <br>
+
+  <% if @event.creator.id == session[:current_user_id] %>
+    <div>
+      Add invitees: <br>
+      <% @users = User.where.not(id: session[:current_user_id]) %>
+        <% @users.each do |user| %>
+          <% unless @attendees.include?(user.id) %>
+            <%= link_to "#{user.username}", {:controller => "events", :action => "update", :user_id => user.id, :event_id => @event.id}, :method => "patch" %>
+          <% end %>
+        <% end %>
+    </div>
+  <% end %>
+
+  <br>
+
+  <div>
+    <%= link_to "Back", user_path(current_user) %>
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+<%= form_with(model: @event, format: :html) do |form| %>
+  <%= form.hidden_field :creator_id, value: session[:user_id] %>
+  <%= form.label :eventname, "Name of event:" %>
+  <%= form.text_field :eventname %> <br>
+  <%= form.label :description, "Description:"%>
+  <%= form.text_field :description %> <br>
+  <%= form.label :datetime, "Date and Time:"%>
+  <%= form.datetime_field :datetime %> <br>
+  <%= form.label :location, "Location:"%>
+  <%= form.text_field :location %> <br>
+  <%= form.submit "Submit" %>
+<% end %>
